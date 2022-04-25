@@ -1,6 +1,6 @@
 import './styles.css'
 
-function CharCard({characterList}) {
+function CharCard({characterList, diferent}) {
 
   return (
 

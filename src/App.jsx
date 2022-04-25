@@ -4,16 +4,18 @@ import Characters from './components/Characters'
 
 function App() {
 
-  const [characterList, setCharacterList] = useState([])
   const [currentPage, setCurrentPage] = useState('https://rickandmortyapi.com/api/character/')
   const [nextPage, setNextPage] = useState('')
+  const [prevPage, setPrevPage] = useState('')
+  const [characterList, setCharacterList] = useState([])
 
   useEffect(() => {
     fetch(currentPage)
     .then((response) => response.json())
     .then((response) => {
-      setCharacterList([...characterList, ...response.results])
+      setCharacterList(response.results)
       setNextPage(response.info.next)
+      setPrevPage(response.info.prev)
     })
   },[currentPage])
 
@@ -21,8 +23,7 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-        <Characters characterList={characterList}/>
-        <button onClick={() => setCurrentPage(nextPage)} >Next Page</button>
+        <Characters currentPage={currentPage} characterList={characterList} nextPage={nextPage} prevPage={prevPage}  setCurrentPage={setCurrentPage} />
       </header>
     </div>
 
